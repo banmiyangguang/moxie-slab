@@ -45,7 +45,30 @@ moxie::Slab::Slab(size_t chunk_size, size_t page_size, int pre_alloc) {
 }
 
 moxie::Slab::~Slab() {
-    
+    moxie_list::mlist *head = this->empty_pages->next;
+    while (head) {
+        Page *page = PAGE_FROM_PLIST(head);
+        head = moxie_list::remove_from_list_ret_next(&page->plist);
+        delete page;
+        page = nullptr;
+    }
+    head = this->full_pages->next;
+    while (head) {
+        Page *page = PAGE_FROM_PLIST(head);
+        head = moxie_list::remove_from_list_ret_next(&page->plist);
+        delete page;
+        page = nullptr;
+    }
+    head = this->partial_pages->next;
+    while (head) {
+        Page *page = PAGE_FROM_PLIST(head);
+        head = moxie_list::remove_from_list_ret_next(&page->plist);
+        delete page;
+        page = nullptr;
+    }
+    delete this->empty_pages;
+    delete this->full_pages;
+    delete this->partial_pages;
 }
 
 bool moxie::Slab::slab_new_page() {
