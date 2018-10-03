@@ -184,9 +184,6 @@ bool moxie::HashTable::expand_table() {
         this->new_hashsize = hashsize(this->new_power);
         this->new_hashtable = new (std::nothrow) Item*[this->new_hashsize];
         memset(this->new_hashtable, 0, sizeof(Item *) * this->new_hashsize);
-
-        std::cout << "new_hashsize = " << this->new_hashsize << std::endl;
-        std::cout << "new_power = " << this->new_power << std::endl;
     }
 
     int dela = 100;

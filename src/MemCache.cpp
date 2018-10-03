@@ -12,8 +12,8 @@
 moxie::MemCache::MemCache(size_t base_chunk_size, 
         double factor, 
         size_t power_largest, 
-        size_t power_block, 
-        size_t mem_limit, 
+        uint64_t power_block, 
+        uint64_t mem_limit, 
         int pre_alloc) {
 
     size_t i;
@@ -31,6 +31,8 @@ moxie::MemCache::MemCache(size_t base_chunk_size,
         assert(false);
     }
 
+    this->adjust_times_ = 0;
+
     this->mem_limit = mem_limit;
     this->mem_malloced = 0;
     this->factor = factor;
@@ -44,12 +46,15 @@ moxie::MemCache::MemCache(size_t base_chunk_size,
             break;
         }
         slabclass[i] = new (std::nothrow) Slab(chunk_size, power_block, pre_alloc);
-        printf("slab class %3lu: chunk size %6lu\n", i, slabclass[i]->chunk_size);
+        if (!slabclass[i]) {
+            break;
+        }
+        //printf("slab class %3lu: chunk size %6lu page size %6lu\n", i, slabclass[i]->chunk_size, slabclass[i]->page_size);
         chunk_size *= factor;
+        this->mem_malloced += slabclass[i]->page_total * slabclass[i]->page_size;
     }
-    
     this->power_largest = i;
-    this->mem_malloced = this->power_largest;
+    this->mem_malloced += this->power_largest + sizeof(Slab *);
 }
 
 moxie::MemCache::~MemCache() {
@@ -63,8 +68,7 @@ moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, rel_ti
     if (!key || !data) {
         return nullptr;
     }
-    int ntotal = item_make_header(keylen, nbytes);
-
+    size_t ntotal = item_make_header(keylen, nbytes);
     size_t slab_id = mem_cache_clsid(ntotal);
     if (slab_id == 0) {
         return nullptr;
@@ -113,12 +117,17 @@ void *moxie::MemCache::mem_cache_alloc(size_t size, size_t slab_id) {
 
     if (nullptr == ptr) {
         assert(!slab->has_enough_memory());
-        if ((this->mem_malloced >= this->mem_limit) && (!addjust_pages_to_slab(slab_id))) {
-            return nullptr;
+        if (this->mem_malloced >= this->mem_limit) {
+            if (!addjust_pages_to_slab(slab_id)) {
+                std::cout << "Memory use out! mem_total=" << this->mem_malloced << " mem_limit=" << this->mem_limit << std::endl;
+                return nullptr;
+            }
+        } else {
+            if (!slab->slab_new_page()) {
+                return nullptr;
+            }
         }
-        if (!slab->slab_new_page()) {
-            return nullptr;
-        }
+
         ptr = slab->slab_alloc_chunk();
     }
 
@@ -144,8 +153,13 @@ bool moxie::MemCache::mem_cache_free(void *ptr, size_t size) {
     return mem_cache_free(slab_id, ptr);
 }
 
+size_t moxie::MemCache::adjust_times() const {
+    return this->adjust_times_;
+}
+
 bool moxie::MemCache::addjust_pages_to_slab(size_t slab_id) {
-    for (size_t i = this->power_smallest; i <= this->power_largest; ++i) {
+    this->adjust_times_++;
+    for (size_t i = this->power_smallest; i < this->power_largest; ++i) {
         if (i == slab_id) {
             continue;
         }
@@ -167,11 +181,13 @@ size_t moxie::MemCache::mem_cache_clsid(size_t size) {
     }
 
     res = this->power_smallest;
-    while (size > this->slabclass[res]->chunk_size) {
-        if (res >= this->power_largest) {
-            return 0;
-        }
+    while ((res < this->power_largest) && (size > this->slabclass[res]->chunk_size)) {
         ++res;
     }
+
+    if (res >= this->power_largest) {
+        return 0;
+    }
+
     return res;
 }

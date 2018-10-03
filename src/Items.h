@@ -16,6 +16,15 @@ class Item {
 public:
     Item(MemCache *mc) {
         mc = mc;
+        slabs_clsid = 0;
+        h_prev = nullptr;
+        h_next = nullptr;
+        time = 0;
+        exptime = 0;
+        nbytes = 0;
+        it_flags = 0;
+        nkey = 0;
+        refcount = 0;
     }
 
     char *ITEM_key() {
@@ -68,7 +77,7 @@ private:
     /* then data with terminating \r\n (no terminating null; it's binary!) */
 };
 
-int item_make_header(size_t keylen, size_t nbytes);
+size_t item_make_header(size_t keylen, size_t nbytes);
 
 }
 

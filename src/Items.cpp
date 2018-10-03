@@ -20,6 +20,6 @@
 #include "MemCache.h"
 #include "HashTable.h"
 
-int moxie::item_make_header(size_t keylen, size_t nbytes) {
+size_t moxie::item_make_header(size_t keylen, size_t nbytes) {
     return sizeof(moxie::Item) + keylen + nbytes;
 }

@@ -1,5 +1,5 @@
 libs := -lpthread
-cflags := -g -static -Wall -std=c++11
+cflags := -O3 -static -Wall -std=c++11 -DNDEBUG
 CC = g++
 
 objects := $(patsubst %.cpp, %.o, $(wildcard *.cpp))

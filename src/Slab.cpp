@@ -23,21 +23,22 @@
 #include "Items.h"
 
 
-moxie::Slab::Slab(size_t chunk_size, size_t page_size, int pre_alloc) {
-    if (chunk_size % CHUNK_ALIGN_BYTES) {
-        chunk_size += CHUNK_ALIGN_BYTES - (chunk_size % CHUNK_ALIGN_BYTES);
+moxie::Slab::Slab(size_t chunksize, size_t pagesize, int pre_alloc) {
+    if (chunksize % CHUNK_ALIGN_BYTES) {
+        chunksize += CHUNK_ALIGN_BYTES - (chunksize % CHUNK_ALIGN_BYTES);
     }
     
-    if (page_size % PAGE_ALIGN_BYTES) {
-        page_size += PAGE_ALIGN_BYTES - (page_size % PAGE_ALIGN_BYTES);
+    if (pagesize % PAGE_ALIGN_BYTES) {
+        pagesize += PAGE_ALIGN_BYTES - (pagesize % PAGE_ALIGN_BYTES);
     }
 
-    this->chunk_size = chunk_size;
-    this->page_size = page_size;
+    this->chunk_size = chunksize;
+    this->page_size = pagesize;
     this->page_total = 0;
     this->empty_pages = new (std::nothrow) moxie_list::mlist;
     this->full_pages = new (std::nothrow) moxie_list::mlist;
     this->partial_pages = new (std::nothrow) moxie_list::mlist;
+    this->free_chunk_count = 0;
 
     if (pre_alloc) {
        slab_new_page();
@@ -108,7 +109,7 @@ void *moxie::Slab::slab_alloc_chunk() {
         break;
     }
 
-    if (!this->partial_pages->next) {
+    if ((!ret) && this->empty_pages->next) {
         partial = this->empty_pages->next;
         if (partial) {
             Page *page = PAGE_FROM_PLIST(partial);
@@ -142,6 +143,7 @@ moxie::Page *moxie::Slab::pop_empty_page() {
     assert(page->is_empty());
     assert(this->free_chunk_count >= page->chunk_num);
     this->free_chunk_count -= page->chunk_num;
+    --this->page_total;
     return page;
 }
 
@@ -154,26 +156,32 @@ bool moxie::Slab::push_empty_page(Page *page) {
         return false;
     }
 
-    return moxie_list::insert_to_list_after_pnode(this->empty_pages, &page->plist);
+    if (moxie_list::insert_to_list_after_pnode(this->empty_pages, &page->plist)) {
+        this->free_chunk_count += page->chunk_num;
+        ++this->page_total;
+        return true;
+    }
+    return false;
 }
 
 bool moxie::Slab::slab_free_chunk(void *ptr) {
     if (!ptr) {
         return false;
     }
+
     Page *page = PAGE_FROM_CHUNK(ptr);
-    if (page->is_full()) { // remove from full pages list
-        moxie_list::remove_from_list(&page->plist);
-    }
+    moxie_list::remove_from_list(&page->plist);
     page->free_chunk(ptr);
+
     if (page->is_empty()) {
-        moxie_list::remove_from_list(&page->plist);
         moxie_list::insert_to_list_after_pnode(this->empty_pages, &page->plist);
+    } else if (page->is_full()) {
+        assert(false);
+        moxie_list::insert_to_list_after_pnode(this->full_pages, &page->plist);
+    } else {
+        moxie_list::insert_to_list_after_pnode(this->partial_pages, &page->plist);
     }
 
-    if (moxie_list::out_of_list(&page->plist)) {
-        moxie_list::insert_to_list_after_pnode(this->partial_pages, &page->plist);
-    } 
     this->free_chunk_count++;
     return true;
 }

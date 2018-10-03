@@ -6,17 +6,17 @@
 /* powers-of-N allocation structures */
 namespace moxie {
 
-const u_int32_t DEFAULT_POWER_SMALLEST  = 1;
-const u_int32_t DEFAULT_POWER_LARGEST = 200;
-const u_int32_t DEFAULT_POWER_BLOCK = 1048576; /* 1M */
+const uint32_t DEFAULT_POWER_SMALLEST  = 1;
+const uint32_t DEFAULT_POWER_LARGEST = 200;
+const uint64_t DEFAULT_POWER_BLOCK = 1048576; /* 1M */
 
 class MemCache {
 public:
     MemCache(size_t base_chunk_size, 
         double factor, 
         size_t power_largest, 
-        size_t power_block, 
-        size_t mem_limit, 
+        uint64_t power_block, 
+        uint64_t mem_limit, 
         int pre_alloc);
     ~MemCache();
     void *mem_cache_alloc(size_t size, size_t slab_id);
@@ -26,14 +26,17 @@ public:
     moxie::Item *create_item(const char *key, size_t keylen, rel_time_t exptime, const char* data, size_t nbytes);
     void recycle_item(Item *it);
     bool addjust_pages_to_slab(size_t slab_id);
+
+    size_t adjust_times() const;
 private:
+    size_t adjust_times_;
     double factor;
     size_t base_chunk_size;
     size_t power_block;
     size_t power_smallest;
     size_t power_largest;
-    size_t mem_limit;
-    size_t mem_malloced;
+    uint64_t mem_limit;
+    uint64_t mem_malloced;
     Slab **slabclass; /* Array of slab pointers, index 0 is reserved. */
 };
 

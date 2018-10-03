@@ -1,13 +1,10 @@
-cflags := -g -O3 -static -Wall -std=c++11
+#cflags := -O3 -Wall -std=c++11 -ltcmalloc_minimal -DNDEBUG
+cflags := -O3 -Wall -std=c++11 -static -DNDEBUG
 CC = g++
 
-objects := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
-headers := $(wildcard *.h)
-
-Main:$(objects)
-	$(CC) -o $@ $^ -lslab -L../lib
-%.o:%.cpp $(headers)
-	$(CC) -c $<  -I./ -I../src  $(cflags) -o $@
+ALL:
+	$(CC) -o Slab_Hashtable Slab_Hashtable.cpp $(cflags) -lslab -L../lib -I../src
+	$(CC) -o Unoredered_map Unoredered_map.cpp $(cflags)
 
 .PHONY : clean
 clean:

@@ -48,7 +48,7 @@ bool moxie::Page::reset(size_t chunk_size_new) {
 
     this->chunk_size = chunk_size_new;
     this->chunk_num = this->page_size / (this->chunk_size + sizeof(Page *));
-    this->free_chunk_list = (void **)realloc(this->free_chunk_list, this->chunk_num);
+    this->free_chunk_list = (void **)realloc(this->free_chunk_list, this->chunk_num * sizeof(Page *));
     if (!this->free_chunk_list) {
         return false;
     }
