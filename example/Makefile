@@ -4,6 +4,7 @@ CC = g++
 
 ALL:
 	$(CC) -o Slab_Hashtable Slab_Hashtable.cpp $(cflags) -lslab -L../lib -I../src
+	$(CC) -o content_test content_test.cpp $(cflags) -lslab -L../lib -I../src
 	$(CC) -o Unoredered_map Unoredered_map.cpp $(cflags)
 
 .PHONY : clean
