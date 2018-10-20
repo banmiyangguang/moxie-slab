@@ -18,7 +18,7 @@ using namespace moxie;
 
 void insert_find(size_t item, const std::string& value) {
     int chunk_size = value.size() + 150;
-    MemCache *cache = new (std::nothrow) MemCache(chunk_size, 1.25, 40, chunk_size * 1024, 64 * DEFAULT_POWER_BLOCK , 1);
+    MemCache *cache = new (std::nothrow) MemCache(chunk_size, 1.25, 40, DEFAULT_POWER_BLOCK, 64 * DEFAULT_POWER_BLOCK, 1);
     if (!cache) {
         std::cout << "New Memcache failed!" << std::endl;
         return;
