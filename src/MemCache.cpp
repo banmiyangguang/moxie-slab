@@ -104,14 +104,12 @@ void moxie::MemCache::recycle_item(moxie::Item *it) {
 void *moxie::MemCache::mem_cache_alloc(size_t size, size_t slab_id) {
     void *ptr;
     Slab* slab = nullptr;
-    size_t org_page_total;
     
     if (size <= 0 || slab_id <= 0) {
         return nullptr;
     }
 
     slab = this->slabclass[slab_id];
-    org_page_total = slab->page_total;
     ptr = slab->slab_alloc_chunk();
 
     if (nullptr == ptr) {
@@ -125,13 +123,10 @@ void *moxie::MemCache::mem_cache_alloc(size_t size, size_t slab_id) {
             if (!slab->slab_new_page()) {
                 return nullptr;
             }
+            this->mem_malloced += slab->page_size;
         }
 
         ptr = slab->slab_alloc_chunk();
-    }
-
-    if (org_page_total < slab->page_total) {
-        this->mem_malloced += slab->page_size;
     }
 
     return ptr;

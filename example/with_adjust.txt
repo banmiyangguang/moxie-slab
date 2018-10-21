@@ -1,0 +1,32 @@
+valuelen128
+Memory use out! mem_total=67108906 mem_limit=67108864
+create item[236288] failed!
+
+valuelen256
+Memory use out! mem_total=67108905 mem_limit=67108864
+create item[162880] failed!
+
+valuelen478
+Memory use out! mem_total=67108903 mem_limit=67108864
+create item[106176] failed!
+
+valuelen512
+Memory use out! mem_total=67108903 mem_limit=67108864
+create item[100416] failed!
+
+valuelen640
+Memory use out! mem_total=67108902 mem_limit=67108864
+create item[84288] failed!
+
+valuelen768
+Memory use out! mem_total=67108901 mem_limit=67108864
+create item[72576] failed!
+
+valuelen896
+Memory use out! mem_total=67108900 mem_limit=67108864
+create item[63744] failed!
+
+valuelen1024
+Memory use out! mem_total=67108900 mem_limit=67108864
+create item[56832] failed!
+
