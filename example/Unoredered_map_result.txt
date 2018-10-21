@@ -1,0 +1,100 @@
+2048
+datalen:2048 times:1000 insert_time:3264 find_time:178
+4096
+datalen:4096 times:1000 insert_time:2595 find_time:137
+6144
+datalen:6144 times:1000 insert_time:3388 find_time:182
+8192
+datalen:8192 times:1000 insert_time:4188 find_time:133
+10240
+datalen:10240 times:1000 insert_time:5340 find_time:155
+12288
+datalen:12288 times:1000 insert_time:5658 find_time:149
+14336
+datalen:14336 times:1000 insert_time:6998 find_time:132
+16384
+datalen:16384 times:1000 insert_time:8214 find_time:133
+18432
+datalen:18432 times:1000 insert_time:8510 find_time:133
+20480
+datalen:20480 times:1000 insert_time:10032 find_time:133
+22528
+datalen:22528 times:1000 insert_time:10018 find_time:132
+24576
+datalen:24576 times:1000 insert_time:10708 find_time:132
+26624
+datalen:26624 times:1000 insert_time:11782 find_time:133
+28672
+datalen:28672 times:1000 insert_time:12908 find_time:129
+30720
+datalen:30720 times:1000 insert_time:13356 find_time:133
+32768
+datalen:32768 times:1000 insert_time:14370 find_time:124
+34816
+datalen:34816 times:1000 insert_time:14966 find_time:133
+36864
+datalen:36864 times:1000 insert_time:17806 find_time:134
+38912
+datalen:38912 times:1000 insert_time:16856 find_time:164
+40960
+datalen:40960 times:1000 insert_time:17010 find_time:132
+43008
+datalen:43008 times:1000 insert_time:17050 find_time:134
+45056
+datalen:45056 times:1000 insert_time:18547 find_time:124
+47104
+datalen:47104 times:1000 insert_time:18419 find_time:124
+49152
+datalen:49152 times:1000 insert_time:19997 find_time:124
+51200
+datalen:51200 times:1000 insert_time:19950 find_time:124
+53248
+datalen:53248 times:1000 insert_time:21225 find_time:120
+55296
+datalen:55296 times:1000 insert_time:21845 find_time:124
+57344
+datalen:57344 times:1000 insert_time:22780 find_time:120
+59392
+datalen:59392 times:1000 insert_time:23987 find_time:120
+61440
+datalen:61440 times:1000 insert_time:24190 find_time:120
+63488
+datalen:63488 times:1000 insert_time:24653 find_time:121
+65536
+datalen:65536 times:1000 insert_time:25623 find_time:120
+67584
+datalen:67584 times:1000 insert_time:25909 find_time:120
+69632
+datalen:69632 times:1000 insert_time:26927 find_time:120
+71680
+datalen:71680 times:1000 insert_time:27243 find_time:121
+73728
+datalen:73728 times:1000 insert_time:28398 find_time:120
+75776
+datalen:75776 times:1000 insert_time:30839 find_time:158
+77824
+datalen:77824 times:1000 insert_time:30386 find_time:120
+79872
+datalen:79872 times:1000 insert_time:31048 find_time:121
+81920
+datalen:81920 times:1000 insert_time:31621 find_time:120
+83968
+datalen:83968 times:1000 insert_time:31952 find_time:120
+86016
+datalen:86016 times:1000 insert_time:40231 find_time:134
+88064
+datalen:88064 times:1000 insert_time:40717 find_time:150
+90112
+datalen:90112 times:1000 insert_time:36752 find_time:120
+92160
+datalen:92160 times:1000 insert_time:35249 find_time:229
+94208
+datalen:94208 times:1000 insert_time:38435 find_time:124
+96256
+datalen:96256 times:1000 insert_time:42247 find_time:162
+98304
+datalen:98304 times:1000 insert_time:39010 find_time:122
+100352
+datalen:100352 times:1000 insert_time:40529 find_time:145
+102400
+datalen:102400 times:1000 insert_time:40693 find_time:121

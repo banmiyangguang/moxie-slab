@@ -95,11 +95,10 @@ moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, rel_ti
 }
 
 void moxie::MemCache::recycle_item(moxie::Item *it) {
-    unsigned int ntotal = it->ITEM_ntotal();
     assert(it->refcount == 0);
-    it->slabs_clsid = 0;
+    assert(it->slabs_clsid != 0);
     it->clearflags(ITEM_ALLOC);
-    mem_cache_free(it, ntotal);
+    mem_cache_free(it->slabs_clsid, it);
 }
 
 void *moxie::MemCache::mem_cache_alloc(size_t size, size_t slab_id) {

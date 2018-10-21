@@ -1,0 +1,100 @@
+2048
+datalen:2048 times:1000 adjust_times:0 insert_time:7482 find_time:165
+4096
+datalen:4096 times:1000 adjust_times:0 insert_time:7059 find_time:165
+6144
+datalen:6144 times:1000 adjust_times:0 insert_time:6425 find_time:128
+8192
+datalen:8192 times:1000 adjust_times:0 insert_time:7268 find_time:124
+10240
+datalen:10240 times:1000 adjust_times:0 insert_time:7934 find_time:137
+12288
+datalen:12288 times:1000 adjust_times:0 insert_time:8934 find_time:124
+14336
+datalen:14336 times:1000 adjust_times:0 insert_time:9976 find_time:125
+16384
+datalen:16384 times:1000 adjust_times:0 insert_time:10634 find_time:124
+18432
+datalen:18432 times:1000 adjust_times:0 insert_time:11395 find_time:124
+20480
+datalen:20480 times:1000 adjust_times:0 insert_time:12200 find_time:120
+22528
+datalen:22528 times:1000 adjust_times:0 insert_time:13193 find_time:116
+24576
+datalen:24576 times:1000 adjust_times:0 insert_time:14257 find_time:124
+26624
+datalen:26624 times:1000 adjust_times:0 insert_time:14597 find_time:120
+28672
+datalen:28672 times:1000 adjust_times:0 insert_time:15693 find_time:115
+30720
+datalen:30720 times:1000 adjust_times:0 insert_time:16215 find_time:112
+32768
+datalen:32768 times:1000 adjust_times:0 insert_time:17275 find_time:116
+34816
+datalen:34816 times:1000 adjust_times:0 insert_time:17553 find_time:113
+36864
+datalen:36864 times:1000 adjust_times:0 insert_time:19169 find_time:116
+38912
+datalen:38912 times:1000 adjust_times:0 insert_time:20109 find_time:116
+40960
+datalen:40960 times:1000 adjust_times:0 insert_time:19938 find_time:112
+43008
+datalen:43008 times:1000 adjust_times:0 insert_time:20621 find_time:112
+45056
+datalen:45056 times:1000 adjust_times:0 insert_time:21317 find_time:112
+47104
+datalen:47104 times:1000 adjust_times:0 insert_time:22206 find_time:112
+49152
+datalen:49152 times:1000 adjust_times:0 insert_time:22904 find_time:112
+51200
+datalen:51200 times:1000 adjust_times:0 insert_time:23501 find_time:112
+53248
+datalen:53248 times:1000 adjust_times:0 insert_time:24635 find_time:113
+55296
+datalen:55296 times:1000 adjust_times:0 insert_time:25020 find_time:112
+57344
+datalen:57344 times:1000 adjust_times:0 insert_time:26029 find_time:112
+59392
+datalen:59392 times:1000 adjust_times:0 insert_time:28223 find_time:116
+61440
+datalen:61440 times:1000 adjust_times:0 insert_time:28071 find_time:112
+63488
+datalen:63488 times:1000 adjust_times:0 insert_time:28910 find_time:112
+65536
+datalen:65536 times:1000 adjust_times:0 insert_time:28987 find_time:112
+67584
+datalen:67584 times:1000 adjust_times:0 insert_time:29726 find_time:112
+69632
+datalen:69632 times:1000 adjust_times:0 insert_time:30316 find_time:112
+71680
+datalen:71680 times:1000 adjust_times:0 insert_time:31603 find_time:112
+73728
+datalen:73728 times:1000 adjust_times:0 insert_time:32003 find_time:113
+75776
+datalen:75776 times:1000 adjust_times:0 insert_time:32739 find_time:112
+77824
+datalen:77824 times:1000 adjust_times:0 insert_time:36273 find_time:112
+79872
+datalen:79872 times:1000 adjust_times:0 insert_time:34690 find_time:163
+81920
+datalen:81920 times:1000 adjust_times:0 insert_time:35725 find_time:113
+83968
+datalen:83968 times:1000 adjust_times:0 insert_time:37376 find_time:112
+86016
+datalen:86016 times:1000 adjust_times:0 insert_time:37571 find_time:112
+88064
+datalen:88064 times:1000 adjust_times:0 insert_time:45396 find_time:125
+90112
+datalen:90112 times:1000 adjust_times:0 insert_time:42528 find_time:120
+92160
+datalen:92160 times:1000 adjust_times:0 insert_time:39669 find_time:112
+94208
+datalen:94208 times:1000 adjust_times:0 insert_time:43243 find_time:112
+96256
+datalen:96256 times:1000 adjust_times:0 insert_time:41917 find_time:116
+98304
+datalen:98304 times:1000 adjust_times:0 insert_time:44780 find_time:112
+100352
+datalen:100352 times:1000 adjust_times:0 insert_time:45347 find_time:126
+102400
+datalen:102400 times:1000 adjust_times:0 insert_time:45473 find_time:174

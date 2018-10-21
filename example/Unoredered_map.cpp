@@ -24,25 +24,29 @@ int test_unordered_map(size_t item, const std::string& value) {
         assert(maps.find(key) != maps.end());
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "insert_time:" << std::chrono::duration_cast<std::chrono::microseconds>(middle - start).count() 
-                << " find_time:" << std::chrono::duration_cast<std::chrono::microseconds>(end - middle).count() << std::endl;
+    std::cout << "datalen:" << value.size() << " times:" << item
+            << " insert_time:" << std::chrono::duration_cast<std::chrono::microseconds>(middle - start).count() 
+            << " find_time:" << std::chrono::duration_cast<std::chrono::microseconds>(end - middle).count() << std::endl;
 
 
     return 0;
 }
-
 int main(int argc, char **argv) {
-    std::string value = "v";
-    std::vector<size_t> items = {100000, 300000,  500000, 700000, 900000, 1100000};
-    std::vector<size_t> valuelen = {128, 256, 512, 768, 1024, 1536, 1792};
-    for (size_t i = 0; i < valuelen.size(); ++i) {
-        std::cout << valuelen[i] << std::endl;
-        value.resize(valuelen[i], 'v');
-        for (size_t j = 0; j < items.size(); ++j) {
-            std::cout << "items_size=" << items[j] << " "; 
-            test_unordered_map(items[j], value);
-        }
-        std::cout << std::endl;
+    if (argc < 3) {
+        std::cout << "Usage:exec datalen reqs" << std::endl;
+        return -1;
     }
+    int reqs = std::atoi(argv[2]);
+    int datalen = std::atoi(argv[1]);
+    if (reqs < 0 || datalen < 0) {
+        std::cout << "error:reqs < 0 || datalen < 0" << std::endl;
+        return -1;
+    }
+    std::cout << datalen << std::endl;
+    std::string value;
+    value.resize(datalen, 'v');
+    test_unordered_map(reqs, value);
     return 0;
 }
+
+
