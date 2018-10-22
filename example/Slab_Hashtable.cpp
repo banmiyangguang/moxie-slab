@@ -18,17 +18,26 @@ using namespace moxie;
 
 void insert_find(size_t item, const std::string& value) {
     int chunk_size = value.size() + 150;
-    MemCache *cache = new (std::nothrow) MemCache(chunk_size, 1.25, 40, chunk_size * 1024, 512 * DEFAULT_POWER_BLOCK * 6, 1);
+    MemCache *cache = new (std::nothrow) MemCache(chunk_size, 
+                                                    1.25,
+                                                    40,
+                                                    chunk_size * 1024,
+                                                    512 * DEFAULT_POWER_BLOCK * 6,
+                                                    1);
     if (!cache) {
         std::cout << "New Memcache failed!" << std::endl;
         return;
     }
 
+    HashTable *hashtable_two = new HashTable(20, 1);
+    if (!hashtable_two) {
+        std::cout << "New HashTable failed!" << std::endl;
+        return;
+    }
     std::string key_prefix;
     key_prefix.resize(30, 'a');
 
     std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-    HashTable *hashtable_two = new HashTable(20, 1);
     for (size_t i = 0; i < item; ++i) {
         std::string key = key_prefix + std::to_string(i);
         std::string new_value = value + key;
