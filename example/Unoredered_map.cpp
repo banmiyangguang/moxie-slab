@@ -24,10 +24,14 @@ int test_unordered_map(size_t item, const std::string& value) {
         assert(maps.find(key) != maps.end());
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "datalen:" << value.size() << " times:" << item
-            << " insert_time:" << std::chrono::duration_cast<std::chrono::microseconds>(middle - start).count() 
-            << " find_time:" << std::chrono::duration_cast<std::chrono::microseconds>(end - middle).count() << std::endl;
-
+    uint64_t insert_time = std::chrono::duration_cast<std::chrono::microseconds>(middle - start).count();
+    uint64_t find_time = std::chrono::duration_cast<std::chrono::microseconds>(end - middle).count();
+    int64_t insert_per_sec = item * 1000000 / insert_time;
+    int64_t find_per_sec = item * 1000000 / find_time;
+    std::cout   << "datalen:" << value.size() << " times:" << item
+                << " insert_time:" << insert_time << " insert_per_sec:" << insert_per_sec
+                << " find_time:" << find_time << " find_per_sec:" << find_per_sec
+                << std::endl;
 
     return 0;
 }
@@ -42,7 +46,6 @@ int main(int argc, char **argv) {
         std::cout << "error:reqs < 0 || datalen < 0" << std::endl;
         return -1;
     }
-    std::cout << datalen << std::endl;
     std::string value;
     value.resize(datalen, 'v');
     test_unordered_map(reqs, value);

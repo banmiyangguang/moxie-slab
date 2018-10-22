@@ -111,7 +111,6 @@ void *moxie::MemCache::mem_cache_alloc(size_t size, size_t slab_id) {
 
     slab = this->slabclass[slab_id];
     ptr = slab->slab_alloc_chunk();
-
     if (nullptr == ptr) {
         assert(!slab->has_enough_memory());
         if (this->mem_malloced >= this->mem_limit) {

@@ -11,6 +11,7 @@ moxie::Page::Page(size_t page_size, size_t chunk_size) {
     this->chunk_num = this->page_size / (this->chunk_size + sizeof(Page *));
     this->ptr = malloc(this->page_size);
     if (!ptr) {
+        std::cout << "Alloc page ptr failed!" << std::endl;
         this->page_size = 0;
         return;
     }
@@ -19,6 +20,7 @@ moxie::Page::Page(size_t page_size, size_t chunk_size) {
     if (this->free_chunk_list == nullptr) {
         this->page_size = 0;
         free(this->ptr);
+        std::cout << "Alloc free chunk list failed!" << std::endl;
         return;
     }
 
@@ -70,17 +72,20 @@ bool moxie::Page::is_empty() const {
 }
 
 bool moxie::Page::is_full() const {
-    return this->free_chunk_end == 0;
+    return this->free_chunk_end < 0;
 }
 
 void *moxie::Page::alloc_chunk() {
+    if (0 >= this->free_chunk_end) {
+        return nullptr;
+    }
+
     if (this->free_chunk_end--) {
         Page **ptr = (Page **)(this->free_chunk_list[this->free_chunk_end]);
         ptr[0] = this;
         return ptr + 1;
-    } else {
-        return nullptr;
     }
+
     return nullptr;
 }
 

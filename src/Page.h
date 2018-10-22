@@ -31,9 +31,9 @@ public:
     moxie_list::mlist plist;
     size_t chunk_size;
     size_t page_size;
-    size_t chunk_num;
+    int64_t chunk_num;
     void **free_chunk_list;
-    size_t free_chunk_end;
+    int64_t free_chunk_end;
 };
 
 } // moxie

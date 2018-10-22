@@ -1,4 +1,4 @@
-cflags := -O3 -Wall -std=c++11 -ltcmalloc_minimal -DNDEBUG
+cflags := -O3 -Wall -std=c++11 -ltcmalloc_minimal -DNDEBUG -L/opt/gperftools/lib
 #cflags := -O3 -Wall -std=c++11 -static -DNDEBUG
 CC = g++
 
