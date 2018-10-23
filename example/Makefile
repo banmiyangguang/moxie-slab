@@ -1,5 +1,5 @@
-cflags := -O3 -Wall -std=c++11 -ltcmalloc_minimal -DNDEBUG -L/opt/gperftools/lib
-#cflags := -O3 -Wall -std=c++11 -static -DNDEBUG
+cflags := -O3 -Wall -std=c++11 -DNDEBUG -ltcmalloc_minimal -I/opt/gperftools-2.7/include -L/opt/gperftools/lib
+#cflags := -O3 -Wall -std=c++11 -ltcmalloc_minimal -lprofiler -lunwind -DNDEBUG -I/opt/gperftools-2.7/include -L/opt/gperftools/lib
 CC = g++
 
 ALL:
@@ -7,7 +7,6 @@ ALL:
 	$(CC) -o content_test content_test.cpp $(cflags) -lslab -L../lib -I../src
 	$(CC) -o Unoredered_map Unoredered_map.cpp $(cflags)
 	$(CC) -o MemcpyTest MemcpyTest.cpp $(cflags)
-	$(CC) -o Slab_Hashtable_rewrite_by_sprintf Slab_Hashtable_rewrite_by_sprintf.cpp  $(cflags) -lslab -L../lib -I../src
 
 .PHONY : clean
 clean:

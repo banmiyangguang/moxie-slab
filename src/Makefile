@@ -1,4 +1,3 @@
-libs := -lpthread
 cflags := -O3 -static -Wall -std=c++11 -DNDEBUG
 CC = g++
 
@@ -10,7 +9,7 @@ libslab.a:$(objects)
 	mkdir -p ../lib
 	mv $@ ../lib
 %.o:%.cpp $(headers)
-	$(CC) -c $<  -I./  $(cflags) -o $@  $(libs)
+	$(CC) -c $<  -I./  $(cflags) -o $@
 
 .PHONY : clean
 clean:

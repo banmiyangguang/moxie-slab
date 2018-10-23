@@ -87,8 +87,8 @@ moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, const 
     it->nkey = keylen;
     it->setflags(ITEM_ALLOC);
     it->nbytes = nbytes;
-    memcpy(it->ITEM_key(), key, it->nkey);
-    memcpy(it->ITEM_data(), data, it->nbytes);
+    strncpy(it->ITEM_key(), key, it->nkey);
+    strncpy(it->ITEM_data(), data, it->nbytes);
     return it;
 }
 

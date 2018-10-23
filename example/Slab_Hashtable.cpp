@@ -5,6 +5,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include <gperftools/profiler.h>
+
 #include <Slab.h>
 #include <Items.h>
 #include <MemCache.h>
@@ -15,9 +17,11 @@ using namespace std;
 using namespace moxie;
 
 #define M (1014 * 1024)
+#define uint64_t unsigned long long 
 
 void insert_find(size_t item, const std::string& value) {
     int chunk_size = value.size() + 150;
+    //ProfilerStart("./gperftool.profile");
     MemCache *cache = new (std::nothrow) MemCache(chunk_size, 
                                                     1.25,
                                                     40,
@@ -65,6 +69,7 @@ void insert_find(size_t item, const std::string& value) {
                 << " insert_time:" << insert_time << " insert_per_sec:" << insert_per_sec
                 << " find_time:" << find_time << " find_per_sec:" << find_per_sec
                 << std::endl;
+    //ProfilerStop();
     delete hashtable_two;
     delete cache;
 }

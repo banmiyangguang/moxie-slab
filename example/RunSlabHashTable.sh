@@ -6,18 +6,17 @@
 #!/bin/bash
 
 
-base_times=(100000)
-base_datalen=(256)
-count_times=30
+base_times=100000
+base_datalen=128
+base_count=15
 
-for ((i=1;i<=$count_times;++i))
+for ((i=1;i<=$base_count;++i))
 do
     this_datalen=`expr $base_datalen \* $i`
-    this_times=`echo "$base_times*$base_datalen/$this_datalen" | bc`
+    this_times=$base_times
     echo datalen:$this_datalen times:$this_times
     ./Slab_Hashtable $this_datalen $this_times >> Slab_Hashtable_result.txt
     ./Assoc_hashtable $this_datalen $this_times >> Assoc_Hashtable_result.txt
-#./Slab_Hashtable_rewrite_by_sprintf $this_datalen $this_times >> Assoc_Hashtable_result.txt
 done
 
 
