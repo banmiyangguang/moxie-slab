@@ -15,16 +15,12 @@ class Item {
     friend class HashTable;
 public:
     Item(MemCache *mc) {
-        mc = mc;
         slabs_clsid = 0;
         h_prev = nullptr;
         h_next = nullptr;
-        time = 0;
-        exptime = 0;
         nbytes = 0;
         it_flags = 0;
         nkey = 0;
-        refcount = 0;
     }
 
     char *ITEM_key() {
@@ -61,20 +57,13 @@ public:
         return (it_flags & bits) != 0;
     }
 private:
-    MemCache *mc;
     Item *h_prev;
     Item *h_next;    /* hash chain next */
-    rel_time_t      time;       /* least recent access */
-    rel_time_t      exptime;    /* expire time */
     size_t          nbytes;     /* size of data */
-    uint8_t         refcount;
     uint8_t         it_flags;   /* ITEM_* above */
     uint8_t         slabs_clsid;/* which slab class we're in */
     size_t         nkey;       /* key length, w/terminating null and padding */
     void * end[0];
-    /* then null-terminated key */
-    /* then " flags length\r\n" (no terminating null) */
-    /* then data with terminating \r\n (no terminating null; it's binary!) */
 };
 
 size_t item_make_header(size_t keylen, size_t nbytes);

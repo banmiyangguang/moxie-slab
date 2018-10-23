@@ -7,6 +7,7 @@ ALL:
 	$(CC) -o content_test content_test.cpp $(cflags) -lslab -L../lib -I../src
 	$(CC) -o Unoredered_map Unoredered_map.cpp $(cflags)
 	$(CC) -o MemcpyTest MemcpyTest.cpp $(cflags)
+	$(CC) -o Slab_Hashtable_rewrite_by_sprintf Slab_Hashtable_rewrite_by_sprintf.cpp  $(cflags) -lslab -L../lib -I../src
 
 .PHONY : clean
 clean:

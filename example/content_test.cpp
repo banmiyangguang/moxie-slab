@@ -32,7 +32,7 @@ void insert_find(size_t item, const std::string& value) {
     for (size_t i = 0; i < item; ++i) {
         std::string key = key_prefix + std::to_string(i);
         std::string new_value = value + key;
-        Item *it = cache->create_item(key.c_str(), key.size(), 0, new_value.c_str(), new_value.size());
+        Item *it = cache->create_item(key.c_str(), key.size(), new_value.c_str(), new_value.size());
         if (!it) {
             std::cout << "create item[" << i << "] failed!" << std::endl;
             return;

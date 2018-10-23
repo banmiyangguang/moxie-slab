@@ -23,7 +23,7 @@ public:
     bool mem_cache_free(void *ptr, size_t size);
     bool mem_cache_free(int slab_id, void *ptr);
     size_t mem_cache_clsid(size_t size);
-    moxie::Item *create_item(const char *key, size_t keylen, rel_time_t exptime, const char* data, size_t nbytes);
+    moxie::Item *create_item(const char *key, size_t keylen, const char* data, size_t nbytes);
     void recycle_item(Item *it);
     bool addjust_pages_to_slab(size_t slab_id);
 

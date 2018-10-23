@@ -64,7 +64,7 @@ moxie::MemCache::~MemCache() {
     free(this->slabclass);
 }
 
-moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, rel_time_t exptime, const char* data, size_t nbytes) {
+moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, const char* data, size_t nbytes) {
     if (!key || !data) {
         return nullptr;
     }
@@ -84,13 +84,11 @@ moxie::Item *moxie::MemCache::create_item(const char *key, size_t keylen, rel_ti
 
     it->h_next = nullptr;
     it->h_prev = nullptr;
-    it->refcount = 0;
     it->nkey = keylen;
     it->setflags(ITEM_ALLOC);
     it->nbytes = nbytes;
     memcpy(it->ITEM_key(), key, it->nkey);
     memcpy(it->ITEM_data(), data, it->nbytes);
-    it->exptime = exptime;
     return it;
 }
 

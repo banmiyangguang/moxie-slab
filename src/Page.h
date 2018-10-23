@@ -34,6 +34,7 @@ public:
     int64_t chunk_num;
     void **free_chunk_list;
     int64_t free_chunk_end;
+    int64_t free_chunk_start;
 };
 
 } // moxie

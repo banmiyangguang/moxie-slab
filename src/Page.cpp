@@ -23,11 +23,8 @@ moxie::Page::Page(size_t page_size, size_t chunk_size) {
         std::cout << "Alloc free chunk list failed!" << std::endl;
         return;
     }
-
-    for (size_t i = 0; i < this->chunk_num; ++i) {
-        this->free_chunk_list[i] = (void *)((const char *)this->ptr + i * (this->chunk_size + sizeof(Page *)));
-    }
-    this->free_chunk_end = this->chunk_num;
+    this->free_chunk_end = 0;
+    this->free_chunk_start = 0;
 }
 
 moxie::Page::~Page() {
@@ -54,11 +51,8 @@ bool moxie::Page::reset(size_t chunk_size_new) {
     if (!this->free_chunk_list) {
         return false;
     }
-
-    for (size_t i = 0; i < this->chunk_num; ++i) {
-        this->free_chunk_list[i] = (void *)((const char *)this->ptr + i * (this->chunk_size + sizeof(Page *)));
-    }
-    this->free_chunk_end = this->chunk_num;
+    this->free_chunk_end = 0;
+    this->free_chunk_start = 0;
     this->plist.next = this->plist.prev = nullptr;
     return true;
 }
@@ -68,20 +62,26 @@ bool moxie::Page::vaild() const {
 }
 
 bool moxie::Page::is_empty() const {
-    return this->free_chunk_end == this->chunk_num;
+    return this->free_chunk_end == this->free_chunk_start;
 }
 
 bool moxie::Page::is_full() const {
-    return this->free_chunk_end < 0;
+    return (this->free_chunk_start == this->chunk_num) && (this->free_chunk_end == 0);
 }
 
 void *moxie::Page::alloc_chunk() {
-    if (0 >= this->free_chunk_end) {
-        return nullptr;
+    Page **ptr = nullptr;
+    if (this->free_chunk_start < this->chunk_num) {
+        ptr = (Page **)((const char *)this->ptr + this->free_chunk_start * (this->chunk_size + sizeof(Page *)));    
+        ++this->free_chunk_start;
     }
 
-    if (this->free_chunk_end--) {
-        Page **ptr = (Page **)(this->free_chunk_list[this->free_chunk_end]);
+    if (this->free_chunk_end > 0) {
+        ptr = (Page **)(this->free_chunk_list[this->free_chunk_end]);
+        --this->free_chunk_end;
+    }
+
+    if (ptr) {
         ptr[0] = this;
         return ptr + 1;
     }

@@ -6,9 +6,9 @@
 #!/bin/bash
 
 
-base_times=(10000)
-base_datalen=(2048)
-count_times=50
+base_times=(100000)
+base_datalen=(256)
+count_times=30
 
 for ((i=1;i<=$count_times;++i))
 do
@@ -17,6 +17,7 @@ do
     echo datalen:$this_datalen times:$this_times
     ./Slab_Hashtable $this_datalen $this_times >> Slab_Hashtable_result.txt
     ./Assoc_hashtable $this_datalen $this_times >> Assoc_Hashtable_result.txt
+#./Slab_Hashtable_rewrite_by_sprintf $this_datalen $this_times >> Assoc_Hashtable_result.txt
 done
 
 

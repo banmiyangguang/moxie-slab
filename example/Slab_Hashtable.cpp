@@ -41,19 +41,20 @@ void insert_find(size_t item, const std::string& value) {
     for (size_t i = 0; i < item; ++i) {
         std::string key = key_prefix + std::to_string(i);
         std::string new_value = value + key;
-        Item *it = cache->create_item(key.c_str(), key.size(), 0, new_value.c_str(), new_value.size());
+        Item *it = cache->create_item(key.c_str(), key.size(), new_value.c_str(), new_value.size());
         if (!it) {
             std::cout << "create item failed!" << std::endl;
             return;
         }
         
         hashtable_two->item_insert(it);
-        assert(hashtable_two->item_find(key.c_str(), key.size()));
     }
     std::chrono::steady_clock::time_point middle = std::chrono::steady_clock::now();
     for (size_t i = 0; i < item; ++i) {
         std::string key = key_prefix + std::to_string(i);
-        assert(hashtable_two->item_find(key.c_str(), key.size()));
+        if (!hashtable_two->item_find(key.c_str(), key.size())) {
+            std::cout << "Find Item error!" << std::endl;
+        }
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     uint64_t insert_time = std::chrono::duration_cast<std::chrono::microseconds>(middle - start).count();
